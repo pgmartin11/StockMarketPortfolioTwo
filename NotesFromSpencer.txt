@@ -1,0 +1,33 @@
+
+==================== 10.2.12 notes ===
+
+be sure to fix all warnings
+
+
+
+
+
+==========================
+Your project description looks great. I think it will be challenging but not too hard.
+
+comments on the code I see here:
+
+- write comments for classes and methods as you write the code (or before you write the code).
+  - in addition to helping the reader understand your code, these comments can help you clarify what you are doing too.
+  - use JavaDoc format
+  - good comments are essential
+  - good comments aren't too long. you don't have to comment every line. a good comment will tell the reader why code is
+   written in a certain and explain stuff that is not obvious in the code itself.
+
+- use whole words for variable names.
+- Don't use single letters for notation e.g. PPages. The presentation package indicates that first P well enough. Same note
+ for BL
+
+Feel free to check in the web app framework.
+
+Please consider using selenium http://seleniumhq.org/ and junit style tests to test your web.
+If this ends up being too much work for you guys, I understand, but it would be great to see some selenium tests for this project.
+
+Looking good.
+
+Thanks, Spencer

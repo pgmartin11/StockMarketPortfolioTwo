@@ -1,0 +1,18 @@
+
+<data>
+
+    <person>
+        <name>
+
+        </name>
+        <password>
+
+        </password>
+        <stocks>
+                 <stock name="GOOG"/>
+        </stocks>
+    </person>
+
+
+
+</data>
