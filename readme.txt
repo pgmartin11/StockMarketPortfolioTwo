@@ -6,7 +6,7 @@ Summary
 -------
 This project comprises an application that permits users to obtain stock quotes for a stock symbol. The functionality will permit entering a stock market symbol in a search field, and the latest stock price and other information will be displayed for that stock. Note that the quote value will be delayed by 20 minutes as we will be using free services which contain an intentional latency.
 
-Project team members are Alan Derrick and Peter Martin.
+Peter Martin is the sole contributor on this project.
 
 GUI
 ---
