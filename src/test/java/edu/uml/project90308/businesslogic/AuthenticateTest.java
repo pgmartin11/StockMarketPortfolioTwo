@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import edu.uml.project90308.persistence.Person;
+import edu.uml.project90308.persistence.*;
 
 public class AuthenticateTest {
 
@@ -23,16 +23,10 @@ public class AuthenticateTest {
     }
 
     @Test
-    public void testAuthenticateConstruction() {
-        return;
-    }
-
-    @Test
-    public void testProcessLoginPositive() {
-        Authenticate testAuthenticate = new Authenticate();
-        UserInfo uInfo = testAuthenticate.processLogin(tUserName, tPasswd);
-        assertEquals("Authentication successful: userName", testUser.getUserName(), uInfo.getUserName());
-        assertEquals("Authentication successful: password", testUser.getPassword(), uInfo.getPassword());
+    public void testProcessLoginPositive() throws UserNotFoundException {
+        UserInfo user = Authenticate.processLogin(tUserName, tPasswd);
+        assertEquals("Authentication successful: userName", testUser.getUserName(), user.getUserName());
+        assertEquals("Authentication successful: password", testUser.getPassword(), user.getPassword());
     }
 
 }

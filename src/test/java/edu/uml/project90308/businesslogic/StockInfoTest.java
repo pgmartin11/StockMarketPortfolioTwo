@@ -23,13 +23,6 @@ public class StockInfoTest {
     }
 
     @Test
-    public void testSearchStockSymbol() {
-        Stock stock = tStockInfo.searchStockSymbol("EMC");
-        assertEquals("Symbol", stock.getSymbol(), tStock.getSymbol());
-        assertEquals("Full Name", stock.getFullName(), tStock.getFullName());
-    }
-
-    @Test
     public void testAddStockSymbol() {
     }
 
@@ -40,14 +33,14 @@ public class StockInfoTest {
 
     @Test
     public void testEditStockInfo() {
-        Stock stock = tStockInfo.searchStockSymbol("EMC");
+        Stock stock = tStockInfo.selectStockSymbol("EMC");
         assertEquals("Symbol", stock.getSymbol(), tStock.getSymbol());
         assertEquals("Full Name", stock.getFullName(), tStock.getFullName());
     }
 
     @Test
     public void testSelectStockSymbol() {
-        Stock stock = tStockInfo.searchStockSymbol("EMC");
+        Stock stock = tStockInfo.selectStockSymbol("EMC");
         assertEquals("Symbol", stock.getSymbol(), tStock.getSymbol());
     }
 

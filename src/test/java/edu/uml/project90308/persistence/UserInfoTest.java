@@ -1,131 +1,81 @@
 package edu.uml.project90308.persistence;
 
+import com.sun.xml.internal.ws.server.EndpointMessageContextImpl;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-import edu.uml.project90308.persistence.UserInfo;
+import edu.uml.project90308.businesslogic.*;
 
-
-/**
- * todo 1) Error running TestPerson
- * class 'edu.uml.project90308.persistence.TestPerson' not found in module 'Test'
- *
- * todo 2) Warning: uses unchecked or unsafe operations -- what's this about?
- *
- * Created with IntelliJ IDEA.
- * User: seattlecamper
- * Date: 9/26/12
- * Time: 5:12 PM
- */
 public class UserInfoTest {
 
     private UserInfo user;
+    private String DEFAULT_USERNAME = "MOM";
     private String DEFAULT_PASSWORD =  "momPW";
 
     @Before
-    public void setUp() throws NameException {
-        ArrayList<String>SymbolArrayList = new ArrayList();
-        SymbolArrayList.add("GOOG");
-        user = new UserInfo("MOM", "momPW", SymbolArrayList);
+    public void setUp() {
+        List<Stock>StockList = new ArrayList<Stock>();
+        StockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        user = new UserInfo(DEFAULT_USERNAME, DEFAULT_PASSWORD, StockList);
     }
 
     /**
-     * todo I was wondering if this is how you to the teardown step, see last line in testGetName() below
+     * todo I was wondering if this is how you do the teardown step, see last line in testGetName() below
      * I have similar code in all the tests below YES, see my setupMethod()
      * <p/>
      * Any method with the @After annotation will run after a test is complete. Use them to clean up after tests
      * Any method with the @Before annotation will run before a test is run. Use them to setup the baseline environment.
      *
-     * @throws Exception
      */
     @Test
-    public void testGetUserName() throws Exception {
+    public void testGetUserName() {
         String result = user.getUserName();
-        String DEFAULT_USER_NAME = "MOM";
-        assertEquals(DEFAULT_USER_NAME, result);
+        assertEquals(DEFAULT_USERNAME, result);
      }
 
-    /**
-     * @throws Exception
-     */
     @Test
-    public void testGetPassword() throws Exception {
+    public void testGetPassword() {
         String result = user.getPassword();
         assertEquals(DEFAULT_PASSWORD, result);
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
-    public void testGetSymbol() throws Exception {
-        ArrayList<String>SymbolArrayList = new ArrayList();
-        SymbolArrayList.add("GOOG");
-        ArrayList<String> result = user.getSymbol();
-        assertEquals(SymbolArrayList, result);
+    public void testGetStocks() {
+        List<Stock>tStockList = new ArrayList<Stock>();
+        tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        List<Stock> result = user.getStocks();
+        assertEquals(tStockList, result);
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
-    public void testSetName() throws Exception {
+    public void testSetName() {
         String name = "Buddy";
         user.setUserName(name);
         String result = user.getUserName();
         assertEquals(name, result);
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
-    public void testSetPassword() throws Exception {
-        user.setPassword(DEFAULT_PASSWORD);
-        String expected_result = DEFAULT_PASSWORD;
-        assertEquals(DEFAULT_PASSWORD, expected_result);
+    public void testSetPassword() {
+        String newPassword = "Tco2012";
+        user.setPassword(newPassword);
+        String result = user.getPassword();
+        assertEquals(newPassword, result);
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
-    public void testSetSymbols() throws Exception {
-        ArrayList<String> symbol = new ArrayList();
-        symbol.add("GOOG");
-        user.setSymbols(symbol);
-        ArrayList<String> result = user.getSymbol();
-        assertEquals(symbol, result);
+    public void testSetStocks() {
+        List<Stock>tStockList = new ArrayList<Stock>();
+        tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        tStockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
+        user.setStocks(tStockList);
+        List<Stock> result = user.getStocks();
+        assertEquals(tStockList, result);
     }
 
-    /**
-     *
-     */
-    @Test(expected = NameException.class)
-    public void testIsAllLetters() throws Exception {
-        user.setUserName("Sam");
-    }
-
-    /**
-     *
-     */
-    @Test(expected = NameException.class)
-    public void testIsAllLettersNegative() throws Exception {
-        user.setUserName("213");
-    }
-
-
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void testToString() throws Exception {
-        String expResult = "UserName: MOM, Password: momPW, Stock Symbol(s): GOOG";
-        String result = user.toString();
-        assertEquals(expResult, result);
-    }
 }
