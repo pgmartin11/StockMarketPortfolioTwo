@@ -29,4 +29,9 @@ public class AuthenticateTest {
         assertEquals("Authentication successful: password", testUser.getPassword(), user.getPassword());
     }
 
+    @Test
+    public void testProcessLogout() {
+        //
+    }
+
 }

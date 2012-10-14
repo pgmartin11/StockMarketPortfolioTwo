@@ -24,14 +24,6 @@ public class UserInfoTest {
         user = new UserInfo(DEFAULT_USERNAME, DEFAULT_PASSWORD, StockList);
     }
 
-    /**
-     * todo I was wondering if this is how you do the teardown step, see last line in testGetName() below
-     * I have similar code in all the tests below YES, see my setupMethod()
-     * <p/>
-     * Any method with the @After annotation will run after a test is complete. Use them to clean up after tests
-     * Any method with the @Before annotation will run before a test is run. Use them to setup the baseline environment.
-     *
-     */
     @Test
     public void testGetUserName() {
         String result = user.getUserName();
