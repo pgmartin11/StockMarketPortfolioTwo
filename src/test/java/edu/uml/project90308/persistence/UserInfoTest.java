@@ -1,13 +1,11 @@
 package edu.uml.project90308.persistence;
 
-import com.sun.xml.internal.ws.server.EndpointMessageContextImpl;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 import edu.uml.project90308.businesslogic.*;
 

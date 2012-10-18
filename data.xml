@@ -1,18 +1,9 @@
-
-<data>
-
-    <person>
-        <name>
-
-        </name>
-        <password>
-
-        </password>
+<users>
+    <user>
+        <username>pgmartin</username>
+        <password>Biking2009</password>
         <stocks>
                  <stock name="GOOG"/>
         </stocks>
-    </person>
-
-
-
-</data>
+    </user>
+</users>
