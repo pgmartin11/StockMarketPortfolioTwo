@@ -3,6 +3,8 @@ package edu.uml.project90308.persistence;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,6 @@ import edu.uml.project90308.businesslogic.*;
 
 public class UserHandlerXMLTest {
 
-    private String testfil = "/Users/pgmartin/UML/90.308/StockMarketPortfolioTwo/useraccounts.xml";
     private Stock testStock;
     private UserInfo testUser;
     private List<UserInfo> testAccounts;
@@ -31,7 +32,7 @@ public class UserHandlerXMLTest {
 
     @Test
     public void testParsePositive() {
-        List<UserInfo> resAccounts = UserHandlerXML.parse(testfil);
+        List<UserInfo> resAccounts = UserHandlerXML.parse();
         UserInfo account0 = resAccounts.get(0);
         UserInfo testAccount0 = testAccounts.get(0);
         UserInfo account1 = resAccounts.get(1);
@@ -43,4 +44,22 @@ public class UserHandlerXMLTest {
         assertEquals(account1.getPassword(), testAccount1.getPassword());
         assertEquals(account1.getStocks(), testAccount1.getStocks());
     }
+    @Test
+    public void testParseNegative() {
+        testAccounts = new ArrayList<UserInfo>();
+        testStocks = new ArrayList<Stock>();
+        testStocks.add(new Stock("YHOO", "", ""));
+        testAccounts.add(new UserInfo("jdoe", "Fall2012",testStocks));
+        List<UserInfo> resAccounts = UserHandlerXML.parse();
+        UserInfo account0 = resAccounts.get(0);
+        UserInfo testAccount0 = testAccounts.get(0);
+        assertFalse(account0.getUserName().equals(testAccount0.getUserName()));
+        assertFalse(account0.getPassword().equals(testAccount0.getPassword()));
+        assertFalse(account0.getStocks().equals(testAccount0.getStocks()));
+    }
+    @Test
+    public void testPersist() {
+        UserHandlerXML.persist(testAccounts);
+    }
+
 }

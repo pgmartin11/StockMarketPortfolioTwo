@@ -28,7 +28,6 @@ public class UserInfo {
         //
     }
     /**
-     * PGM: Don't believe this constructor will ever be needed
      *
      * This constructor will accept various parameters and fill the new Userinfo object
      *

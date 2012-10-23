@@ -3,11 +3,10 @@ package edu.uml.project90308.persistence;
 import java.util.List;
 import java.util.ArrayList;
 
-
 /**
  * @author Peter G. Martin
  *
- * A static class which contains methods for persistihg user account information for an exising session
+ * A static class which contains methods for retrieving and persistihg user account information
  */
 public class DAOUserInfo {
 
@@ -20,11 +19,19 @@ public class DAOUserInfo {
      * @return A list containing a UserInfo object for the user account or an empty list if no valid user account found
      */
     public static List<UserInfo> getUserAccount(String username, String password) {
-        // simulate returning a user
-        List<UserInfo> userInfoList = new ArrayList<UserInfo>();
-        UserInfo userInfo = new UserInfo(username, password);
+        List<UserInfo> accountList = new ArrayList<UserInfo>();
 
-        userInfoList.add(userInfo);
-        return userInfoList;
+        List<UserInfo> userInfoList = UserHandlerXML.parse();
+        if (!userInfoList.isEmpty()) {
+            for (UserInfo account : userInfoList) {
+                if (username.equals(account.getUserName()) && password.equals(account.getPassword())){
+                    accountList.add(account);
+                }
+            }
+        }
+        else
+            accountList = userInfoList;
+
+        return accountList;
     }
 }

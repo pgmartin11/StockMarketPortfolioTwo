@@ -23,13 +23,16 @@ public class Authenticate {
      *
      * @throws UserNotFoundException
      */
-	public static UserInfo processLogin(String uname, String passwd) throws UserNotFoundException {
+	public static UserInfo processLogin(String uname, String passwd) throws UserNotFoundException, MoreThanOneUserFoundException {
         List<UserInfo> userInfoList = DAOUserInfo.getUserAccount(uname, passwd);
-        if (!userInfoList.isEmpty())
-            return userInfoList.get(0);
-        else
+        if (userInfoList.isEmpty())
             throw new UserNotFoundException("No user account found for that username and password");
-	}
+
+        if (userInfoList.size() > 1)
+            throw new MoreThanOneUserFoundException("Multiple user accounts found for that username and password");
+
+        return userInfoList.get(0);
+ 	}
 
     /**
      * Logout a user from an existing session

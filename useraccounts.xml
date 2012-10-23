@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<users>
+    <user>
+        <username>pgmartin</username>
+        <password>Biking2009</password>
+        <stocks>
+                 <stock>GOOG</stock>
+        </stocks>
+    </user>
+    <user>
+        <username>jharvard</username>
+        <password>Brewhouse2012</password>
+        <stocks>
+                 <stock>APPL</stock>
+                 <stock>EMC</stock>
+        </stocks>        
+    </user>
+</users>
