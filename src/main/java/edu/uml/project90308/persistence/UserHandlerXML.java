@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import java.io.IOException;
+
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,23 +72,15 @@ public class UserHandlerXML extends DefaultHandler {
      *
      * @return A list containing UserInfo objects for all user accounts
      */
-    public static List<UserInfo> parse() {
+    public static List<UserInfo> parse() throws SAXException, IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         spf.setValidating(true);
 
-        XMLReader xmlReader = null;
-        try {
-            xmlReader = XMLReaderFactory.createXMLReader();
-            xmlReader.setContentHandler(new UserHandlerXML());
-            xmlReader.parse(IFILENAME);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            accounts = Collections.emptyList();
-        }
-        finally {
-            return accounts;
-        }
+        XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+        xmlReader.setContentHandler(new UserHandlerXML());
+        xmlReader.parse(IFILENAME);
+
+        return accounts;
     }
 
     public void startElement(String nsURI, String localName, String rawName, Attributes atts) throws SAXException {
@@ -153,6 +147,7 @@ public class UserHandlerXML extends DefaultHandler {
      *
      * @param accounts A list containing UserInfo objects for all user accounts
      */
+    //public static void persist(List<UserInfo> accounts) throws ParserConfigurationException, TransformerException {
     public static void persist(List<UserInfo> accounts) {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();

@@ -25,7 +25,7 @@ public class DAOUserInfoTest {
     }
 
     @Test
-    public void testDAOUserInfo() throws UserNotFoundException, MoreThanOneUserFoundException {
+    public void testGetUserAccount() throws CouldNotReadDataException {
         List<UserInfo> userInfoList = DAOUserInfo.getUserAccount(tUserName, tPasswd);
         assertTrue(userInfoList.size() == 1);
         UserInfo user = userInfoList.get(0);

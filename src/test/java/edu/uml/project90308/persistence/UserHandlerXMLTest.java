@@ -9,6 +9,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.IOException;
+import org.xml.sax.SAXException;
+
 import edu.uml.project90308.businesslogic.*;
 
 public class UserHandlerXMLTest {
@@ -31,7 +34,7 @@ public class UserHandlerXMLTest {
     }
 
     @Test
-    public void testParsePositive() {
+    public void testParsePositive() throws SAXException, IOException {
         List<UserInfo> resAccounts = UserHandlerXML.parse();
         UserInfo account0 = resAccounts.get(0);
         UserInfo testAccount0 = testAccounts.get(0);
@@ -45,7 +48,7 @@ public class UserHandlerXMLTest {
         assertEquals(account1.getStocks(), testAccount1.getStocks());
     }
     @Test
-    public void testParseNegative() {
+    public void testParseNegative()  throws SAXException, IOException {
         testAccounts = new ArrayList<UserInfo>();
         testStocks = new ArrayList<Stock>();
         testStocks.add(new Stock("YHOO", "", ""));

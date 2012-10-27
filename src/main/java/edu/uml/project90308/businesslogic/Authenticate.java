@@ -1,10 +1,10 @@
 package edu.uml.project90308.businesslogic;// Business logic tier
 
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import edu.uml.project90308.persistence.DAOUserInfo;
-import edu.uml.project90308.persistence.UserInfo;
+import edu.uml.project90308.persistence.*;
 
 /**
  * @author Peter G. Martin
@@ -23,8 +23,16 @@ public class Authenticate {
      *
      * @throws UserNotFoundException
      */
-	public static UserInfo processLogin(String uname, String passwd) throws UserNotFoundException, MoreThanOneUserFoundException {
-        List<UserInfo> userInfoList = DAOUserInfo.getUserAccount(uname, passwd);
+	public static UserInfo processLogin(String uname, String passwd) throws UnableToObtainAccountsException, UserNotFoundException, MoreThanOneUserFoundException {
+        List<UserInfo> userInfoList;
+
+        try {
+            userInfoList = DAOUserInfo.getUserAccount(uname, passwd);
+        }
+        catch (CouldNotReadDataException cnrde) {
+            throw new UnableToObtainAccountsException("Unable to access the account XML file:" + cnrde.getMessage());
+        }
+
         if (userInfoList.isEmpty())
             throw new UserNotFoundException("No user account found for that username and password");
 

@@ -3,6 +3,9 @@ package edu.uml.project90308.persistence;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.IOException;
+import org.xml.sax.SAXException;
+
 /**
  * @author Peter G. Martin
  *
@@ -18,19 +21,25 @@ public class DAOUserInfo {
      *
      * @return A list containing a UserInfo object for the user account or an empty list if no valid user account found
      */
-    public static List<UserInfo> getUserAccount(String username, String password) {
+    public static List<UserInfo> getUserAccount(String username, String password) throws CouldNotReadDataException {
         List<UserInfo> accountList = new ArrayList<UserInfo>();
+        List<UserInfo> userInfoList;
 
-        List<UserInfo> userInfoList = UserHandlerXML.parse();
-        if (!userInfoList.isEmpty()) {
-            for (UserInfo account : userInfoList) {
-                if (username.equals(account.getUserName()) && password.equals(account.getPassword())){
+        try {
+            userInfoList = UserHandlerXML.parse();
+        }
+        catch (SAXException sxe) {
+            throw new CouldNotReadDataException("XML parser error: " + sxe.getMessage());
+        }
+        catch (IOException ioe) {
+            throw new CouldNotReadDataException("IO Error: " + ioe.getMessage());
+        }
+
+        for (UserInfo account : userInfoList) {
+            if (username.equals(account.getUserName()) && password.equals(account.getPassword())){
                     accountList.add(account);
-                }
             }
         }
-        else
-            accountList = userInfoList;
 
         return accountList;
     }

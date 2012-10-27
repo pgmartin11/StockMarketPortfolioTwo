@@ -23,16 +23,14 @@ public class AuthenticateTest {
     }
 
     @Test
-    public void testProcessLoginPositive() throws UserNotFoundException, MoreThanOneUserFoundException {
+    public void testProcessLoginPositive() throws UnableToObtainAccountsException, UserNotFoundException, MoreThanOneUserFoundException {
         UserInfo user = Authenticate.processLogin(tUserName, tPasswd);
         assertEquals("Authentication successful: userName", testUser.getUserName(), user.getUserName());
         assertEquals("Authentication successful: password", testUser.getPassword(), user.getPassword());
     }
-    @Test
-    public void testProcessLoginNegative() throws UserNotFoundException, MoreThanOneUserFoundException {
-    //     UserInfo user = Authenticate.processLogin(tUserName, "foo");
-    //     assertEquals("Authentication successful: userName", testUser.getUserName(), user.getUserName());
-    //     assertEquals("Authentication successful: password", "foo", user.getPassword());
+    @Test(expected = UserNotFoundException.class)
+    public void testProcessLoginNegative() throws UnableToObtainAccountsException, UserNotFoundException, MoreThanOneUserFoundException {
+         UserInfo user = Authenticate.processLogin(tUserName, "foo");
     }
     @Test
     public void testProcessLogout() {
