@@ -71,7 +71,7 @@ public class UserInfo {
      *
      * @return stock symbols from the favorites list
      */
-    public List<Stock> getStocks(){
+    public List<Stock> getStocks() {
         return stocks;
     }
 
@@ -95,7 +95,7 @@ public class UserInfo {
      *
      * @param stocks List stockSymbols
      */
-    public void setStocks(List stocks) {
+    public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
     }
 
