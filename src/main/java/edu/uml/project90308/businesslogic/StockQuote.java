@@ -3,7 +3,11 @@ package edu.uml.project90308.businesslogic;
 import java.net.*;
 import java.io.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.io.IOUtils;
+
+import edu.uml.project90308.persistence.*;
 
 /**
  * @author Peter G. Martin
@@ -15,24 +19,50 @@ import org.apache.commons.io.IOUtils;
 public class StockQuote {
 
     /**
-     * verifies the userName only contains letters and white space, then sets the userName
+     * Obtain a stock quote for the supplied stock symbol
      *
      * @param sym Stock symbol of the stock
      *
      * @return Stock quote information as a CSV string
+     *
+     * @throws CouldNotReadDataException
      */
-    public static String getQuote(String sym) throws Exception {
+    public static String getQuote(String sym) throws CouldNotReadDataException {
+    //public static String getQuote(String sym) throws MalformedURLException {
 
         String params = "sl1d1t1c1ohgv";
         String theUrl = "http://download.finance.yahoo.com/d/quotes.csv?s=" + sym + "&f=" + params;
 
         InputStream inputStream = null;
         StringWriter stringWriter = null;
-        URL url = new URL(theUrl);
-        inputStream = url.openStream();
-        stringWriter = new StringWriter();
-        IOUtils.copy(inputStream, stringWriter);
+        try {
+            URL url = new URL(theUrl);
+            inputStream = url.openStream();
+            stringWriter = new StringWriter();
+            IOUtils.copy(inputStream, stringWriter);
+        }
+        catch (IOException ioe) {
+            throw new CouldNotReadDataException("IO Error: " + ioe.getMessage());
+        }
 
         return stringWriter.toString();
+    }
+
+    /**
+     * Obtain stock quotes for a list of supplied stock symbols
+     *
+     * @param syms Stock symbol of the stock
+     *
+     * @return Stock quotes as a list
+     *
+     * @throws CouldNotReadDataException
+     */
+    public static List<String> getQuotes(List<String> syms) throws CouldNotReadDataException {
+        List<String> quotes = new ArrayList<String>();
+        for (String sym : syms) {
+            quotes.add(getQuote(sym));
+        }
+
+        return quotes;
     }
 }

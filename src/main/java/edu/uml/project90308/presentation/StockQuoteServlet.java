@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.io.*;
 
 import edu.uml.project90308.businesslogic.*;
+import edu.uml.project90308.persistence.*;
 
 public class StockQuoteServlet extends HttpServlet {
 
@@ -21,8 +22,52 @@ public class StockQuoteServlet extends HttpServlet {
         out.println("<html");
         out.println("<head><title>Stock Symbol Report</title></head>");
 
+        // test getQuotes with prepopulate stock symbol list
+        List<String> syms = new ArrayList<String>();
+        syms.add("EMC");
+        syms.add("GOOG");
+        syms.add("YHOO");
+
+        out.println("<table>");
+        out.println("<tr>");
+        out.println("<th>Symbol</th>");
+        out.println("<th>Last Trade</th>");
+        out.println("<th>Last Trade Date</th>");
+        out.println("<th>Last Trade Time</th>");
+        out.println("<th>Change</th>");
+        out.println("<th>Open</th>");
+        out.println("<th>Day High</th>");
+        out.println("<th>Day Low</th>");
+        out.println("<th>Volume</th>");
+        out.println("</tr>");
+
+        List<String> quotes;
+        List<String> quoteLine;
+        try {
+            CSVRE csvre = new CSVRE();
+            quotes = StockQuote.getQuotes(syms);
+            for (String quote : quotes) {
+                quoteLine = csvre.parse(quote);
+                out.println("<tr>");
+                //if (isValidStockQuote(quote)) // assume only valid stock symbols are in favorites
+                for (String col : quoteLine) {
+                    out.println("<td>" + col + "</td>");
+                }
+                out.println("</tr>");
+            }
+            out.println("</table>");
+        }
+        catch (CouldNotReadDataException CouldNotReadDataException) {
+            // print out something on the screen too
+            System.err.println("Error: " + CouldNotReadDataException.getMessage());
+        }
+        finally {
+            out.println("<p><a href=\"main.jsp\">Return to main page</a></p>");
+            out.println("</html");
+        }
+/*
         String symbol = req.getParameter("stocksymbol");
-        if (!symbol.isEmpty()) {
+         if (!symbol.isEmpty()) {
             out.println("<body>");
             try {
                 CSVRE csvre = new CSVRE();
@@ -41,9 +86,8 @@ public class StockQuoteServlet extends HttpServlet {
                     out.println("<th>Volume</th>");
                     out.println("</tr>");
                     out.println("<tr>");
-                    Iterator it = quote.iterator();
-                    while(it.hasNext()) {
-                        out.println("<td>" + it.next() + "</td>");
+                    for (String qu : quote) {
+                        out.println("<td>" + qu + "</td>");
                     }
                     out.println("</tr>");
                     out.println("</table>");
@@ -71,6 +115,7 @@ public class StockQuoteServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html");
         }
+ */
     }
 
     private boolean isValidStockQuote(List<String> quote) {
