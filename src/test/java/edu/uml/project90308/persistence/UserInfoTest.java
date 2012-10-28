@@ -19,6 +19,7 @@ public class UserInfoTest {
     public void setUp() {
         List<Stock>StockList = new ArrayList<Stock>();
         StockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        StockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
         user = new UserInfo(DEFAULT_USERNAME, DEFAULT_PASSWORD, StockList);
     }
 
@@ -38,6 +39,7 @@ public class UserInfoTest {
     public void testGetStocks() {
         List<Stock>tStockList = new ArrayList<Stock>();
         tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        tStockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
         List<Stock> result = user.getStocks();
         assertEquals(tStockList, result);
     }
@@ -63,9 +65,29 @@ public class UserInfoTest {
         List<Stock>tStockList = new ArrayList<Stock>();
         tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
         tStockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
-        user.setStocks(tStockList);
         List<Stock> result = user.getStocks();
         assertEquals(tStockList, result);
     }
 
+    @Test
+    public void testAddStock() {
+        List<Stock>tStockList = new ArrayList<Stock>();
+        tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        tStockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
+        Stock nStock = new Stock("YHOO", "Yahoo! Inc.", "16.79");
+        tStockList.add(nStock);
+        user.addStock(nStock);
+        List<Stock> result = user.getStocks();
+        assertEquals(tStockList, result);
+    }
+
+    @Test
+    public void testRemoveStock() {
+        List<Stock>tStockList = new ArrayList<Stock>();
+        tStockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        Stock tStock = new Stock("GOOG", "Google, Inc.", "744.75");
+        user.removeStock(tStock);
+        List<Stock> result = user.getStocks();
+        assertEquals(tStockList, result);
+    }
 }

@@ -79,7 +79,7 @@ public class UserInfo {
      * verifies the userName only contains letters and white space, then sets the userName
      *
      * @param userName userName of Person object
-     * @throws NameException
+     *
      */
     public void setUserName(String userName) {
         this.userName = userName;
@@ -97,6 +97,27 @@ public class UserInfo {
      */
     public void setStocks(List stocks) {
         this.stocks = stocks;
+    }
+
+    /**
+     * Add a stock symbol to the favorites list
+     *
+     * @param stock Stock object to add
+     *
+     */
+    public void addStock(Stock stock) {
+        stocks.add(stock);
+    }
+
+    /**
+     * Remove a stock symbol to the favorites list
+     *
+     * @param stock Stock object to remove
+     *
+     * return status of removal
+     */
+    public boolean removeStock(Stock stock) {
+        return stocks.remove(stock);
     }
 
 } // end UserInfo
