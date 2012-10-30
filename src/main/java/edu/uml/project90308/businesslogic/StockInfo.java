@@ -13,14 +13,6 @@ import edu.uml.project90308.persistence.*;
 public class StockInfo {
 
     /**
-     *
-     * No-arg constructor
-     */
-	public StockInfo() {
-		return;
-	}
-
-    /**
      * Retrieve a stock from the user's favorites list
      *
      * @param sym userName of account

@@ -16,6 +16,15 @@ public class StockQuoteServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
 
+        // Create a new session.
+        List<Stock>StockList = new ArrayList<Stock>();
+        StockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
+        StockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));        HttpSession session = req.getSession(true);
+        session.setAttribute("sessioninfo.userinfo", new UserInfo("pg.martin", "Biking2009", StockList));
+
+        // Fetch session parameters
+        UserInfo user = (UserInfo) session.getAttribute("sessioninfo.count");
+
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 

@@ -5,10 +5,6 @@ import edu.uml.project90308.businesslogic.*;
 import edu.uml.project90308.persistence.*;
 
 public class StockInfo {
-	
-	public StockInfo() {
-		return;
-	}
 
 	public String getStockSymbol() {
 		return "EMC";
