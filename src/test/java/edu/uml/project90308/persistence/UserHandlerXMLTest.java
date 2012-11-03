@@ -11,6 +11,8 @@ import java.util.List;
 
 import java.io.IOException;
 import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import edu.uml.project90308.businesslogic.*;
 
@@ -61,7 +63,7 @@ public class UserHandlerXMLTest {
         assertFalse(account0.getStocks().equals(testAccount0.getStocks()));
     }
     @Test
-    public void testPersist() {
+    public void testPersist() throws ParserConfigurationException, TransformerException {
         UserHandlerXML.persist(testAccounts);
     }
 
