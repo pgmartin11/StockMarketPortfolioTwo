@@ -147,63 +147,56 @@ public class UserHandlerXML extends DefaultHandler {
      *
      * @param accounts A list containing UserInfo objects for all user accounts
      */
-    //public static void persist(List<UserInfo> accounts) throws ParserConfigurationException, TransformerException {
-    public static void persist(List<UserInfo> accounts) {
-        try {
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+    public static void persist(List<UserInfo> accounts) throws ParserConfigurationException, TransformerException {
 
-            // root elements
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement(ROOT_ELEMENT);
-            doc.appendChild(rootElement);
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            Element userElement;
-            List<Stock> accountStocks;
-            for (UserInfo account : accounts) {
-                // user element
-                userElement = doc.createElement(USER_ELEMENT);
-                rootElement.appendChild(userElement);
+        // root elements
+        Document doc = docBuilder.newDocument();
+        Element rootElement = doc.createElement(ROOT_ELEMENT);
+        doc.appendChild(rootElement);
 
-                // username element
-                Element usernameElement = doc.createElement(USERNAME_ELEMENT);
-                usernameElement.appendChild(doc.createTextNode(account.getUserName()));
-                userElement.appendChild(usernameElement);
+        Element userElement;
+        List<Stock> accountStocks;
+        for (UserInfo account : accounts) {
+            // user element
+            userElement = doc.createElement(USER_ELEMENT);
+            rootElement.appendChild(userElement);
 
-                // lastname element
-                Element passwordElement = doc.createElement(PASSWORD_ELEMENT);
-                passwordElement.appendChild(doc.createTextNode(account.getPassword()));
-                userElement.appendChild(passwordElement);
+            // username element
+            Element usernameElement = doc.createElement(USERNAME_ELEMENT);
+            usernameElement.appendChild(doc.createTextNode(account.getUserName()));
+            userElement.appendChild(usernameElement);
 
-                // stocks element
-                Element stocksElement = doc.createElement(STOCKS_ELEMENT);
-                userElement.appendChild(stocksElement);
+            // lastname element
+            Element passwordElement = doc.createElement(PASSWORD_ELEMENT);
+            passwordElement.appendChild(doc.createTextNode(account.getPassword()));
+            userElement.appendChild(passwordElement);
 
-                // stock elements
-                accountStocks = account.getStocks();
-                Element stockElement;
-                for (Stock stock : accountStocks) {
-                    stockElement = doc.createElement(STOCK_ELEMENT);
-                    stockElement.appendChild(doc.createTextNode(stock.getSymbol()));
-                    stocksElement.appendChild(stockElement);
-                }
+            // stocks element
+            Element stocksElement = doc.createElement(STOCKS_ELEMENT);
+            userElement.appendChild(stocksElement);
+
+            // stock elements
+            accountStocks = account.getStocks();
+            Element stockElement;
+            for (Stock stock : accountStocks) {
+                stockElement = doc.createElement(STOCK_ELEMENT);
+                stockElement.appendChild(doc.createTextNode(stock.getSymbol()));
+                stocksElement.appendChild(stockElement);
             }
-
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(OFILENAME));
-
-            // Output to console for testing
-            // StreamResult result = new StreamResult(System.out);
-
-            transformer.transform(source, result);
-
-        } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-        } catch (TransformerException tfe) {
-            tfe.printStackTrace();
         }
-    }
+
+        // write the content into xml file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(OFILENAME));
+
+        // Output to console for testing
+        // StreamResult result = new StreamResult(System.out);
+
+        transformer.transform(source, result);
+     }
 }

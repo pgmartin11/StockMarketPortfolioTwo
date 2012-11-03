@@ -1,6 +1,10 @@
 // Business logic tier
 package edu.uml.project90308.businesslogic;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import edu.uml.project90308.presentation.*;
 import edu.uml.project90308.persistence.*;
 
@@ -15,50 +19,85 @@ public class StockInfo {
     /**
      * Retrieve a stock from the user's favorites list
      *
-     * @param sym userName of account
+     * @param user userInfo of account
+     * @param sym Symbol of stock information to retrieve
      *
      * @return Stock object
      */
-	public Stock selectStockSymbol(String sym) {
-		return new Stock("EMC", "EMC Corporation", "28.75");
-	}
+	public List<Stock> selectStock(UserInfo user, String sym) {
+        boolean found = false;
+        List<Stock> stocks = new ArrayList<Stock>();
+        List<Stock> userStocks = user.getStocks();
+
+        for (Stock ustock : userStocks) {
+            if (ustock.getSymbol().equals(sym)) {
+                stocks.add(ustock);
+                found = true;
+                break;
+            }
+        }
+
+        if (found)
+		    return stocks;
+        else
+            return Collections.emptyList();
+  	}
 
     /**
-     * Add a stock listing to the user's favorites list
+     * Add a stock to the user's favorites list
      *
-     * @param person userInfo of account
-     * @param stockInfo Stock information about the stock to add
+     * @param user userInfo of account
+     * @param stock Stock object to add
      *
      * @throws Exception
      */
-	public void addStockSymbol(UserInfo person, Stock stockInfo) throws Exception {
-		if (true)
-            return;
-        else
-            throw new Exception("Error");
+	public void addStock(UserInfo user, Stock stock) {
+        List<Stock> stocks = user.getStocks();
+        stocks.add(stock);
+        user.setStocks(stocks);
 	}
 
     /**
-     * Remove a stock listing from the user's favorites list
+     * Remove a stock from the user's favorites list
      *
-     * @param stockInfo Stock information about the stock to add
+     * @param user UserInfo of account
+     * @param stock Stock object to remove
      *
      * @throws Exception
      */
-	public void removeStockSymbol(Stock stockInfo) throws Exception {
-        if (true)
-            return;
-        else
-            throw new Exception("Error");
+	public boolean removeStock(UserInfo user, Stock stock) {
+        boolean changed = false;
+
+        List<Stock> stocks = user.getStocks();
+        changed = stocks.remove(stock);
+        if (changed) {
+            user.setStocks(stocks);
+        }
+
+        return changed;
 	}
 
     /**
      * Edit information on a stock listing in the user's favorites list
      *
-     * @param stockInfo Stock information about the stock to modify
+     * @param user UserInfo of account
+     * @param stock Stock information about the stock to modify
      */
-	public Stock editStockInfo(Stock stockInfo) {
-		return new Stock("EMC", "EMC Corporation", "28.75");
+	public boolean editStock(UserInfo user, Stock stock) {
+        boolean changed = false;
+        List<Stock> stocks = new ArrayList<Stock>();
+        List<Stock> userStocks = user.getStocks();
+
+        for (Stock ustock : userStocks) {
+            if (ustock.getSymbol().equals(stock.getSymbol())) {
+                stocks.remove(ustock);
+                stocks.add(stock);
+                changed = true;
+                break;
+            }
+        }
+
+        return changed;
 	}
 
     /**

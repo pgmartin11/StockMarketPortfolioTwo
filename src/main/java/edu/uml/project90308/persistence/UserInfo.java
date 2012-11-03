@@ -91,33 +91,12 @@ public class UserInfo {
     }// end setPassword
 
     /**
-     * sets the Person object's ArrayList to the passed ArrayList
+     * sets the stock symbols in the favorites list
      *
      * @param stocks List stockSymbols
      */
     public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
-    }
-
-    /**
-     * Add a stock symbol to the favorites list
-     *
-     * @param stock Stock object to add
-     *
-     */
-    public void addStock(Stock stock) {
-        stocks.add(stock);
-    }
-
-    /**
-     * Remove a stock symbol to the favorites list
-     *
-     * @param stock Stock object to remove
-     *
-     * return status of removal
-     */
-    public boolean removeStock(Stock stock) {
-        return stocks.remove(stock);
     }
 
 } // end UserInfo

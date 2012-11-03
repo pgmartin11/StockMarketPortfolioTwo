@@ -14,12 +14,12 @@ public class CSVRETest {
     List<String> testString = new ArrayList<String>();
     String testCSV = "\"one\",two,three,";
 
-     @Before
+    @Before
     public void setUp() {
         testString.add("one");
         testString.add("two");
         testString.add("three");
-      }
+     }
 
     @Test
     public void testParse() {

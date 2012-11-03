@@ -35,7 +35,7 @@ public class Stock {
 
     /**
      *
-     * @return  returns symbol
+     * @return returns stock symbol
      */
     public String getSymbol() {
         return symbol;

@@ -25,11 +25,17 @@ public class DAOUserInfoTest {
     }
 
     @Test
-    public void testGetUserAccount() throws CouldNotReadDataException {
+    public void testGetUserAccountPositive() throws CouldNotReadDataException {
         List<UserInfo> userInfoList = DAOUserInfo.getUserAccount(tUserName, tPasswd);
         assertTrue(userInfoList.size() == 1);
         UserInfo user = userInfoList.get(0);
         assertEquals("Username", testUser.getUserName(), user.getUserName());
         assertEquals("Password", testUser.getPassword(), user.getPassword());
+    }
+
+    @Test
+    public void testGetUserAccountNegative() throws CouldNotReadDataException {
+        List<UserInfo> userInfoList = DAOUserInfo.getUserAccount("foo", "bar");
+        assertTrue(userInfoList.isEmpty());
     }
 }
