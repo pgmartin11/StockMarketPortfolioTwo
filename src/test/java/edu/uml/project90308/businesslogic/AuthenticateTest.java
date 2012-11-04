@@ -2,6 +2,11 @@ package edu.uml.project90308.businesslogic;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -36,5 +41,4 @@ public class AuthenticateTest {
     public void testProcessLogout() {
         //
     }
-
-}
+ }

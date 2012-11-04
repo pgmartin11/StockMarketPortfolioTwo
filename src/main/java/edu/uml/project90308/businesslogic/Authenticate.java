@@ -1,8 +1,11 @@
-package edu.uml.project90308.businesslogic;// Business logic tier
+package edu.uml.project90308.businesslogic;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 import edu.uml.project90308.persistence.*;
 
@@ -47,7 +50,8 @@ public class Authenticate {
      *
      * @param user UserInfo object for account
      */
-	public static void processLogout(UserInfo user) {
+	public static void processLogout(HttpSession session) {
+        session.invalidate();
 		return;
 	}
 	

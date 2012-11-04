@@ -31,6 +31,7 @@ public class StockQuoteServlet extends HttpServlet {
 
         out.println("<html");
         out.println("<head><title>Stock Symbol Report</title></head>");
+        out.println("<body>");
 
         // test getQuotes with prepopulate stock symbol list
         List<String> syms = new ArrayList<String>();
@@ -67,12 +68,13 @@ public class StockQuoteServlet extends HttpServlet {
             }
             out.println("</table>");
         }
-        catch (CouldNotReadDataException CouldNotReadDataException) {
+        catch (CouldNotReadDataException cnrde) {
             // print out something on the screen too
-            System.err.println("Error: " + CouldNotReadDataException.getMessage());
+            System.err.println("Error: " + cnrde.getMessage());
         }
         finally {
             out.println("<p><a href=\"main.jsp\">Return to main page</a></p>");
+            out.println("</body>");
             out.println("</html");
         }
 /*
