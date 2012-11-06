@@ -2,6 +2,8 @@
 
 package edu.uml.project90308.persistence;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +99,25 @@ public class UserInfo {
      */
     public void setStocks(List<Stock> stocks) {
         this.stocks = stocks;
+    }
+
+    @Override
+    public boolean equals (Object user) {
+        if (user == this)
+            return true;
+        if (!(user instanceof UserInfo))
+            return false;
+        return userName.equals(((UserInfo) user).getUserName()) &&
+                password.equals(((UserInfo) user).getPassword()) &&
+                stocks.equals(((UserInfo) user).getStocks());
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 31).
+                append(userName).
+                append(password).
+                toHashCode();
     }
 
 } // end UserInfo

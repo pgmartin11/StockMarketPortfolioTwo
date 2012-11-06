@@ -52,7 +52,6 @@ public class UserHandlerXML extends DefaultHandler {
     private static String STOCKS_ELEMENT = "stocks";
     private static String STOCK_ELEMENT = "stock";
 
-    private static String IFILENAME = "/Users/pgmartin/UML/90.308/StockMarketPortfolioTwo/useraccounts.xml";
     private static String OFILENAME = "userinfofile.xml";
 
     /**
@@ -72,13 +71,13 @@ public class UserHandlerXML extends DefaultHandler {
      *
      * @return A list containing UserInfo objects for all user accounts
      */
-    public static List<UserInfo> parse() throws SAXException, IOException {
+    public static List<UserInfo> parse(String ifilename) throws SAXException, IOException {
         SAXParserFactory spf = SAXParserFactory.newInstance();
         spf.setValidating(true);
 
         XMLReader xmlReader = XMLReaderFactory.createXMLReader();
         xmlReader.setContentHandler(new UserHandlerXML());
-        xmlReader.parse(IFILENAME);
+        xmlReader.parse(ifilename);
 
         return accounts;
     }
@@ -193,9 +192,6 @@ public class UserHandlerXML extends DefaultHandler {
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File(OFILENAME));
-
-        // Output to console for testing
-        // StreamResult result = new StreamResult(System.out);
 
         transformer.transform(source, result);
      }

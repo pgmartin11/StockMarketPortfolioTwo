@@ -18,6 +18,8 @@ import edu.uml.project90308.businesslogic.*;
 
 public class UserHandlerXMLTest {
 
+    private static String IFILENAME = "/Users/pgmartin/UML/90.308/StockMarketPortfolioTwo/useraccounts.xml";
+
     private Stock testStock;
     private UserInfo testUser;
     private List<UserInfo> testAccounts;
@@ -37,7 +39,7 @@ public class UserHandlerXMLTest {
 
     @Test
     public void testParsePositive() throws SAXException, IOException {
-        List<UserInfo> resAccounts = UserHandlerXML.parse();
+        List<UserInfo> resAccounts = UserHandlerXML.parse(IFILENAME);
         UserInfo account0 = resAccounts.get(0);
         UserInfo testAccount0 = testAccounts.get(0);
         UserInfo account1 = resAccounts.get(1);
@@ -55,7 +57,7 @@ public class UserHandlerXMLTest {
         testStocks = new ArrayList<Stock>();
         testStocks.add(new Stock("YHOO", "", ""));
         testAccounts.add(new UserInfo("jdoe", "Fall2012",testStocks));
-        List<UserInfo> resAccounts = UserHandlerXML.parse();
+        List<UserInfo> resAccounts = UserHandlerXML.parse(IFILENAME);
         UserInfo account0 = resAccounts.get(0);
         UserInfo testAccount0 = testAccounts.get(0);
         assertFalse(account0.getUserName().equals(testAccount0.getUserName()));

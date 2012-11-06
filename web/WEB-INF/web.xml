@@ -37,6 +37,16 @@
         <servlet-name>DiagnosticServlet</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StockQuoteAllServlet</servlet-name>
+        <servlet-class>edu.uml.project90308.presentation.StockQuoteAllServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>StockQuoteAllServlet</servlet-name>
+        <url-pattern>/getAllStockQuotes</url-pattern>
+    </servlet-mapping>
 	 
 <!--  <welcome-file-list>
     <welcome-file>index.html</welcome-file>

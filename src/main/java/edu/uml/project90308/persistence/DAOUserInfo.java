@@ -12,9 +12,10 @@ import org.xml.sax.SAXException;
  * A static class which contains methods for retrieving and persistihg user account information
  */
 public class DAOUserInfo {
+    private static String IFILENAME = "/Users/pgmartin/UML/90.308/StockMarketPortfolioTwo/useraccounts.xml";
 
     /**
-     * Verify existence of the user account for the provided username and password
+     * Fetch the user account for the provided username and password
      *
      * @param username username entered
      * @param password password entered
@@ -26,7 +27,7 @@ public class DAOUserInfo {
         List<UserInfo> userInfoList;
 
         try {
-            userInfoList = UserHandlerXML.parse();
+            userInfoList = UserHandlerXML.parse(IFILENAME);
         }
         catch (SAXException sxe) {
             throw new CouldNotReadDataException("XML parser error: " + sxe.getMessage());
@@ -42,5 +43,26 @@ public class DAOUserInfo {
         }
 
         return accountList;
+    }
+
+    /**
+     * Fetch all user accounts
+     *
+     * @return A list containing UserInfo object for all user accounts
+     */
+    public static List<UserInfo> getAllUserAccounts() throws CouldNotReadDataException {
+        List<UserInfo> userInfoList;
+
+        try {
+            userInfoList = UserHandlerXML.parse(IFILENAME);
+        }
+        catch (SAXException sxe) {
+            throw new CouldNotReadDataException("XML parser error: " + sxe.getMessage());
+        }
+        catch (IOException ioe) {
+            throw new CouldNotReadDataException("IO Error: " + ioe.getMessage());
+        }
+
+        return userInfoList;
     }
 }
