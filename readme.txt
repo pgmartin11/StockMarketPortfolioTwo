@@ -26,3 +26,28 @@ o configure information presented in stock quote display
 Persistence
 -----------
 Stocks added to the users favorites list will be stored for retrieval in future sessions. The current design implements this with flat files but this may change.
+
+
+Notes
+-----
+The methods within the persistence and business logic classes implementall the features described in this project proposal. 
+
+The presentation layer is incomplete but contain JSPs and associated servlets which demonstrate how the persistence and business logic methods could be used in a web application. The web application WAR file included is configured for the Tomcat servlet container.
+
+Below is a description of relevant ant tasks:
+
+- run jUnit tests
+
+  $ ant test
+
+- run jUnit with emma coverage (results placed in ./build/coverage/coverage.html)
+
+  $ ant with.emma test
+
+- create WAR file
+
+  $ ant war
+
+- deploy the app to local Tomcat installation
+
+  $ ant deploy
