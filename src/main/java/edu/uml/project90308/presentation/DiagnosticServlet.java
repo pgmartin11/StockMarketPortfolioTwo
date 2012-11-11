@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import edu.uml.project90308.businesslogic.*;
 import edu.uml.project90308.persistence.*;
 
+/**
+ * @author Peter G. Martin
+ *
+ * A servlet fot testing ability to obtain user information saved during login.
+ *
+ */
 public class DiagnosticServlet extends HttpServlet  {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,11 +42,10 @@ public class DiagnosticServlet extends HttpServlet  {
             out.println("<p>" + stock.getSymbol() + " " + stock.getFullName() + " " + stock.getInfo() + "</p>");
         }
 
-
         out.println("</body>");
         out.println("</html");
 
-        // close the session *** doesn't seem to fix problem of loggin in another user
+        // close the session
         Authenticate.processLogout(session);
     }
 

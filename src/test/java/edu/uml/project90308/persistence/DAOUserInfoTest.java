@@ -1,4 +1,4 @@
-package edu.uml.project90308.businesslogic;
+package edu.uml.project90308.persistence;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import edu.uml.project90308.businesslogic.*;
-import edu.uml.project90308.persistence.*;
 
 public class DAOUserInfoTest {
 

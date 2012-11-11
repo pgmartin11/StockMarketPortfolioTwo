@@ -28,7 +28,6 @@ public class StockQuote {
      * @throws CouldNotReadDataException
      */
     public static String getQuote(String sym) throws CouldNotReadDataException {
-    //public static String getQuote(String sym) throws MalformedURLException {
 
         String params = "sl1d1t1c1ohgv";
         String theUrl = "http://download.finance.yahoo.com/d/quotes.csv?s=" + sym + "&f=" + params;

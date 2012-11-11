@@ -99,19 +99,5 @@ public class StockInfo {
 
         return changed;
 	}
-
-    /**
-     * Obtain a new quote for the selected stock listing
-     *
-     * @param sym Stock information about the stock to modify
-     *
-     * @throws Exception
-     */
-	public void refreshQuote(String sym) throws Exception {
-        if (true)
-            return;
-        else
-            throw new Exception("Error");
-	} 
 	
 }

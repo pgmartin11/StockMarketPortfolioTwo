@@ -13,6 +13,13 @@ import java.io.PrintWriter;
 import edu.uml.project90308.businesslogic.*;
 import edu.uml.project90308.persistence.*;
 
+
+/**
+ * @author Peter G. Martin
+ *
+ * A servlet which handles providing a stock quote for the stock symbol entered by the user.
+ *
+ */
 public class StockQuoteServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)

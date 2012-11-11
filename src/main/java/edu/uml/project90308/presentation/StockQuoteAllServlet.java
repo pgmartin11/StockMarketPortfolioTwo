@@ -13,6 +13,12 @@ import java.io.PrintWriter;
 import edu.uml.project90308.businesslogic.*;
 import edu.uml.project90308.persistence.*;
 
+/**
+ * @author Peter G. Martin
+ *
+ * A servlet which handles providing stock quotes for every stock symbol in the user's favorites list of favorite stocks.
+ *
+ */
 public class StockQuoteAllServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -31,9 +37,10 @@ public class StockQuoteAllServlet extends HttpServlet {
         out.println("<head><title>Stock Symbol Report</title></head>");
         out.println("<body>");
 
-        // Get list of user's stock favorites
+        // Get list of user's stock favorites - simulated for debugging. In actual implementation
+        // the list would be retrieved from the UserInfo object stored in a session.
+        //
         List<Stock> StockList = new ArrayList<Stock>();
-        // for debugging
         StockList.add(new Stock("EMC", "EMC Corporation", "28.80"));
         StockList.add(new Stock("GOOG", "Google, Inc.", "744.75"));
         user = new UserInfo("jharvard", "Brewhouse2012", StockList);
