@@ -4,13 +4,18 @@ Stock Market PortfolioTwo
 
 Summary
 -------
-This project comprises an application that permits users to obtain stock quotes for a stock symbol. The functionality will permit entering a stock market symbol in a search field, and the latest stock price and other information will be displayed for that stock. Note that the quote value will be delayed by 20 minutes as we will be using free services which contain an intentional latency.
+This project comprises an application that permits users to obtain stock quotes for a stock 
+symbol. The functionality will permit entering a stock market symbol in a search field, and 
+the latest stock price and other information will be displayed for that stock. Note that the 
+quote value will be delayed by 20 minutes as we will be using free services which contain an 
+intentional latency.
 
 Peter Martin is the sole contributor on this project.
 
 GUI
 ---
-JSP pages will be employed for displaying program output. The J2EE environment needed to support this will be supplied using the Tomcat application server.
+JSP pages will be employed for displaying program output. The J2EE environment needed to 
+support this will be supplied using the Tomcat application server.
 
 Business Logic
 --------------
@@ -25,14 +30,27 @@ o configure information presented in stock quote display
 
 Persistence
 -----------
-Stocks added to the users favorites list will be stored for retrieval in future sessions. The current design implements this with flat files but this may change.
+Stocks added to the users favorites list will be stored for retrieval in future sessions. 
+The current design implements this with flat files but this may change.
 
 
 Notes
 -----
-The methods within the persistence and business logic classes implementall the features described in this project proposal. 
+The methods within the persistence and business logic classes implementall the features described 
+in this project proposal. 
 
-The presentation layer is incomplete but contain JSPs and associated servlets which demonstrate how the persistence and business logic methods could be used in a web application. The web application WAR file included is configured for the Tomcat servlet container.
+The presentation layer is incomplete but contains the JSPs listed below and associated servlets 
+which demonstrate how the persistence and business logic methods are used:
+
+	web/main.jsp
+	web/login.jsp
+	web/allquotes.jsp
+
+The web application WAR file included is configured for the Tomcat servlet container. After 
+the WAR is deployed any of the above JSPs can be referenced as 
+http://localhost:8080/StockMarketPortfolioTwo/<JSP name> e.g.
+
+		http://localhost:8080/StockMarketPortfolioTwo/main.jsp
 
 Below is a description of relevant ant tasks:
 
@@ -44,10 +62,10 @@ Below is a description of relevant ant tasks:
 
   $ ant with.emma test
 
-- create WAR file
+- create the WAR file
 
   $ ant war
 
-- deploy the app to local Tomcat installation
+- deploy the application to a local Tomcat installation
 
   $ ant deploy
