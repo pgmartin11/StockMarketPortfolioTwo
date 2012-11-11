@@ -8,34 +8,29 @@
     <property name="build.dir" value="build"
               description="anything this build script generates goes under this directory"/>
     <property name="classes.dir" value="${build.dir}${file.separator}classes"
-        	  description="Java class files compiled by this build script go here"/>  
-            
+        	  description="Java class files compiled by this build script go here"/>
+    <property name="instr.dir" location="instr" description="instrumented classes placed here" />            
     <property name="report.dir" value="${build.dir}${file.separator}report"
-              description="this directory is used by JUnit. Test results are placed here in a nice HTML format"/>
-              
+              description="this directory is used by JUnit. Test results are placed here in a nice HTML format"/>           
+    <property name="emma_report.dir" value="${build.dir}${file.separator}emma_report" description="Test results for emma"/>
+                  
     <!-- Deployment properties -->
     <property name="web.dir"   value="web"/>
     <property name="dist.dir"  value="dist"/>         
-          
-                   
-	<!-- Set up JAVA_HOME and CATALINA_HOME system wide environment variables, and
-			may use the following three lines to set jdk.home and tomcat.home 
-	-->
+                             
+	<!-- Set jdk.home and tomcat.home properties-->
 	<property environment="env"/> 
-	<property name="jdk.home" location="${env.JAVA_HOME}"/>  <!-- need this? -->
-	<property name="tomcat.home" location="${env.CATALINA_HOME}"/> 
-				
+	<property name="jdk.home" location="${env.JAVA_HOME}"/>
+	<property name="tomcat.home" location="${env.CATALINA_HOME}"/> 		
 	<property name="tomcat.deploy" value="${tomcat.home}${file.separator}webapps"/>
 	
 	<!-- Use local copy of servlet-api.jar if Tomcat is not installed -->
 	<!-- <property name="tomcat.lib" value="${lib.dir}"/> -->
 	<property name="tomcat.lib" value="${tomcat.home}${file.separator}lib"/>
 	<property name="servletjar" value="${tomcat.lib}${file.separator}servlet-api.jar"/>
-	
 	<property name="webapp.name" value="${appname}" description="application name"/>
 
-
-    <!-- this sets up the classpath for the project. Whenever you a .jar to the lib directory it will automatically be
+    <!-- this sets up the classpath for the project. Whenever you add a .jar to the lib directory it will automatically be
         be added to the classpath
     -->
     <path id="project.classpath" description="the project's class path all third party libs are on it. ">
@@ -45,11 +40,37 @@
         </fileset>
         <pathelement location="${servletjar}"/>
     </path>
+    
+	<!-- Settings for EMMA -->
+	<path id="build.classpath">    
+     	<pathelement path="${classes.dir}"/>
+    </path>
+     
+    <path id="run.classpath">  
+        <path refid="project.classpath"/>   
+    </path> 
 
+  	<!-- Output directory used for EMMA coverage reports: -->
+  	<property name="coverage.dir" value="${build.dir}${file.separator}coverage" />
+
+  	<!-- directory that contains emma.jar and emma_ant.jar: -->
+  	<property name="emma.dir" value="emma" />
+  	
+  	<!-- path element used by EMMA taskdef below: -->
+  	<path id="emma.lib" >
+  		<fileset dir="${lib.dir}">
+            <include name="**/emma*jar"/>
+        </fileset>
+  	</path>
+
+  	<!-- this loads <emma> and <emmajava> custom tasks: -->
+  	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
 
     <!-- targets follow - each target does one thing in the compile, run, test and build process -->
-
     <target name="clean" description="deletes all build artifacts (anything created by this build file)">
+        <delete dir="${instr.dir}"/> 
+    	<delete dir="${coverage.dir}"/> <!-- emma -->
+    	<delete dir="${emma_report.dir}"/> <!-- emma -->
         <delete dir="${classes.dir}"/>
         <delete dir="${report.dir}"/>
         <delete dir="${build.dir}"/>
@@ -62,29 +83,62 @@
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${report.dir}"/>
-        <mkdir dir="${dist.dir}" />
         <mkdir dir="${tomcat.deploy}"/>
     </target>
-
+  
     <target name="compile" description="Compile all the code; produce classes" depends="init">
         <javac destdir="${classes.dir}" debug="true" fork="true" srcdir="${src.dir}">
-            <classpath refid="project.classpath"/>
+            <classpath refid="run.classpath"/>
         </javac>
     </target>
+            
+    <target name="with.emma"> 
+        <mkdir dir="${coverage.dir}" />
+    	<mkdir dir="${instr.dir}"/>  
+ 		<property name="emma.enabled" value="true"/>  
+        <property name="out.instr.dir" value="${instr.dir}" />  
+        <path id="run.classpath">  
+           <pathelement location="${out.instr.dir}" />  
+           <path refid="project.classpath"/>   
+           <pathelement path="${emma.dir}/emma.jar" />   
+        </path>  
+    </target>
+      
+    <target name="instr" depends="compile" if="emma.enabled" >  
+    	<emma>  
+      		<instr instrpathref="build.classpath"  
+             destdir="${out.instr.dir}"  
+             metadatafile="${coverage.dir}/metadata.emma"  
+             merge="true"  
+      		/>  
+    	</emma>  
+    </target>    
 
-    <target name="test" description="Runs all the JUnit tests and generates the test results report" depends="compile">
+    <target name="test" description="Runs all the JUnit tests and generates the test results report" depends="instr">
 
         <junit printsummary="yes" haltonfailure="false" showoutput="true" failureproperty="test_failure">
-            <classpath refid="project.classpath"/>
-
-            <formatter type="xml"/>
-
+            <classpath refid="run.classpath"/>
+           
+            <jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage.emma" />  
+    		<jvmarg value="-Demma.coverage.out.merge=true" />
+    		  
+    		<formatter type="plain"/>
+    		<formatter type="xml"/>
             <batchtest fork="yes" todir="${report.dir}">
                 <fileset dir="${classes.dir}">
                     <include name="**/*Test*.class"/>
                 </fileset>
-            </batchtest>
+            </batchtest>   	
         </junit>
+        
+    	<emma enabled="${emma.enabled}">  
+    		<report sourcepath="${src.dir}" >  
+    			<fileset dir="${coverage.dir}" >  
+            		<include name="*.emma" />  
+    			</fileset>  
+    			<html outfile="${coverage.dir}/coverage.html" />  
+    		</report>  
+    	</emma> 
 
         <junitreport todir="${report.dir}">
             <fileset dir="${report.dir}">
@@ -101,9 +155,20 @@
 
     </target>
     
-     
+    <target name="report.html" >   
+    	<emma>  
+    		<report sourcepath="${src.dir}" >  
+    			<fileset dir="${coverage.dir}" >  
+            		<include name="*.emma" />  
+    			</fileset>  
+    			<html outfile="${coverage.dir}/coverage.html" />  
+    		</report>  
+    	</emma>  
+    </target>
+         
 	<!-- WAR rules -->
 	<target name="war" depends="compile">
+		<mkdir dir="${dist.dir}" />
 		<echo>building war...</echo>
 		<war warfile="${dist.dir}${file.separator}${webapp.name}.war" webxml="${web.dir}${file.separator}WEB-INF${file.separator}web.xml">
 			<fileset dir="${web.dir}">
@@ -134,7 +199,7 @@
 	</target>
 	
     <!-- this is the default target - it does everything -->
-    <target name="all" depends="init, clean, compile, test"
-            description="deletes previous work, compiles new class, runs hello program"/>
+    <target name="all" depends="test"
+            description="deletes previous work, compiles new classes, runs program"/>
 
 </project>
