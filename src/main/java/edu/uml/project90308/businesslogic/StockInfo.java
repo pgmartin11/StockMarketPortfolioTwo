@@ -22,7 +22,7 @@ public class StockInfo {
      * @param user userInfo of account
      * @param sym Symbol of stock information to retrieve
      *
-     * @return Stock object
+     * @return list containing a Stock object
      */
 	public List<Stock> selectStock(UserInfo user, String sym) {
         boolean found = false;
@@ -64,6 +64,8 @@ public class StockInfo {
      * @param stock Stock object to remove
      *
      * @throws Exception
+     *
+     * @return status on successful removal of stock
      */
 	public boolean removeStock(UserInfo user, Stock stock) {
         boolean changed = false;
@@ -82,6 +84,8 @@ public class StockInfo {
      *
      * @param user UserInfo of account
      * @param stock Stock information about the stock to modify
+     *
+     * @return status on successful editing of stock information
      */
 	public boolean editStock(UserInfo user, Stock stock) {
         boolean changed = false;

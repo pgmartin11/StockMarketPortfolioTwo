@@ -30,6 +30,7 @@ import edu.uml.project90308.businesslogic.*;
  * @author Peter G. Martin
  *
  * A static class which contains methods for retrieving and persistihg user account information in XML format
+ *
  */
 public class UserHandlerXML extends DefaultHandler {
 
@@ -68,6 +69,7 @@ public class UserHandlerXML extends DefaultHandler {
      *      </user>
      *  </users>
      *
+     * @param ifilename name of user account file to parse
      *
      * @return A list containing UserInfo objects for all user accounts
      */
@@ -82,6 +84,9 @@ public class UserHandlerXML extends DefaultHandler {
         return accounts;
     }
 
+    /**
+     * SAX parser callbacks
+     */
     public void startElement(String nsURI, String localName, String rawName, Attributes atts) throws SAXException {
         if (rawName.equals("user")) {
             user = new UserInfo();

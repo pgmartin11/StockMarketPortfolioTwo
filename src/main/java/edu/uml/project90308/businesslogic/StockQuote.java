@@ -50,9 +50,9 @@ public class StockQuote {
     /**
      * Obtain stock quotes for a list of supplied stock symbols
      *
-     * @param syms Stock symbol of the stock
+     * @param syms Stock symbols of the stocks of which to obtain quotes
      *
-     * @return Stock quotes as a list
+     * @return Stock quotes as a list of CSV strings
      *
      * @throws CouldNotReadDataException
      */

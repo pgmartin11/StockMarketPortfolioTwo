@@ -35,15 +35,14 @@ public class Stock {
 
     /**
      *
-     * @return returns stock symbol
+     * @return stock symbol
      */
     public String getSymbol() {
         return symbol;
     }
     /**
-     * sets the stock symbol
      *
-     * @param symbol Set stock symbol
+     * @param symbol stock symbol to set
      */
     public void setSymbol(String symbol) {
         this.symbol = symbol;
@@ -51,14 +50,14 @@ public class Stock {
 
     /**
      *
-     * @return  returns company name
+     * @return company name
      */
     public String getFullName(){
         return fullName;
     }
     /**
      *
-     * @param  fullName Set company name
+     * @param  fullName company name
      */
     public void setFullName(String fullName){
         this.fullName = fullName;
@@ -66,14 +65,14 @@ public class Stock {
 
     /**
      *
-     * @return  returns stock information
+     * @return stock information
      */
     public String getInfo() {
         return info;
     }
     /**
      *
-     * @param  info Set stock information
+     * @param  info stock information
      */
     public void setInfo(String info) {
         this.info = info;

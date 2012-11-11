@@ -21,8 +21,9 @@ public class Authenticate {
      * Attempt to create a session for the supplied username and password
      *
      * @param uname userName of account
-     * @param passwd password of account    /**
-     * verifies the userName only contains letters and white space, then sets the userName
+     * @param passwd password of account
+     *
+     * @return user account information in UserInfo object
      *
      * @throws UserNotFoundException
      */
