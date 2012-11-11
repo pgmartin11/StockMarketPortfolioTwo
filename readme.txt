@@ -36,7 +36,7 @@ The current design implements this with flat files but this may change.
 
 Notes
 -----
-The methods within the persistence and business logic classes implementall the features described 
+The methods within the persistence and business logic classes implement all the features described 
 in this project proposal. 
 
 The presentation layer is incomplete but contains the JSPs listed below and associated servlets 
