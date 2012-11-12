@@ -36,7 +36,7 @@ The current design implements this with flat files but this may change.
 
 Notes
 -----
-The methods within the persistence and business logic classes implement all the features described 
+The methods within the persistence and business logic classes implementall the features described 
 in this project proposal. 
 
 The presentation layer is incomplete but contains the JSPs listed below and associated servlets 
@@ -69,3 +69,16 @@ Below is a description of relevant ant tasks:
 - deploy the application to a local Tomcat installation
 
   $ ant deploy
+
+
+Exclusions from Unit Testing
+----------------------------
+edu.uml.project90308.businesslogic.Authenticate
+
+	-processLogout	Because this method takes an HttpSession object as its argument it can 
+					only be executed within a java servlet
+										
+edu.uml.project90308.businesslogic.StockQuote
+ 			
+	-getQuote		Both methods communicate with Yahoo stock service and the return results
+	-getQuotes		change over time
