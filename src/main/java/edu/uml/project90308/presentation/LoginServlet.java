@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             }
             else {
                 user = Authenticate.processLogin(username, password);
-                resp.sendRedirect("test");
+                //resp.sendRedirect("test");
 
                 // Create a new session.
                 HttpSession session = req.getSession(true);
