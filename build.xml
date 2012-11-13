@@ -25,8 +25,8 @@
 	<property name="tomcat.deploy" value="${tomcat.home}${file.separator}webapps"/>
 	
 	<!-- Use local copy of servlet-api.jar if Tomcat is not installed -->
-	<!-- <property name="tomcat.lib" value="${lib.dir}"/> -->
-	<property name="tomcat.lib" value="${tomcat.home}${file.separator}lib"/>
+	<property name="tomcat.lib" value="${lib.dir}"/>
+	<!-- <property name="tomcat.lib" value="${tomcat.home}${file.separator}lib"/> -->
 	<property name="servletjar" value="${tomcat.lib}${file.separator}servlet-api.jar"/>
 	<property name="webapp.name" value="${appname}" description="application name"/>
 
